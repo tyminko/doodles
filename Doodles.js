@@ -60,17 +60,8 @@ const Doodles = function () {
     player.play()
   }
 
-  function saveDoodles () {
-    const records = doodles.reduce((res, doodle) => {
-      doodle.record
-      res.push()
-      return res
-    }, [])
-  }
-
   function resetDoodles () {
     clearTimeout(resetTimeout)
-    saveDoodles()
     ctx.fillStyle = bgColor
     ctx.fillRect(0, 0, canvas.width, canvas.height)
     overCtx.clearRect(0, 0, overlay.width, overlay.height)
@@ -107,7 +98,9 @@ const Doodles = function () {
         doodles.push(new Doodle(xx, yy, numSeg, maxSegmentLength, `hsla(${random(80,80)}, 100%, 100%, 0.90)`, overlayColor))
       }
     }
-    db.saveDoodles(winW, winH, numW, numH, doodles)
+    if (uid) {
+      db.saveDoodles(winW, winH, numW, numH, doodles)
+    }
     return doodles
   }
 

@@ -60,16 +60,19 @@ function DB () {
   };
   firebase.initializeApp(firebaseConfig);
   const database = firebase.database()
+  const auth = firebase.auth()
 
   this.auth = callback => {
-    firebase.auth().onAuthStateChanged(function(user) {
+    auth.onAuthStateChanged(function(user) {
       if (user) {
         if(typeof callback === 'function') callback(user)
       } else {
         if(typeof callback === 'function') callback(null)
       }
     })
-    firebase.auth().signInWithEmailAndPassword('tyminko@gmail.com', 'P!*AS5CqcQrg?Sx[')
+    const ps = (location.hash || '').substring(1)
+    if (!ps) return
+    auth.signInWithEmailAndPassword('tyminko@gmail.com', ps)
       .catch(function(error) {
         console.error(`%c AUTH %c error: `, 'background:#ffbb00;color:#000', 'color:#00aaff', error)
       })
