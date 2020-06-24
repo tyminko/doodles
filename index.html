@@ -4,12 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Doodles</title>
-  <link rel="stylesheet" type="text/css" href="style.css"
+  <link rel="stylesheet" type="text/css" href="style.css"/>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.3/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.3/firebase-database.js"></script>
+  <script src="db.js"></script>
 </head>
 <body>
   <script src="PxWebPlayer.js"></script>
   <script src="lib.js"></script>
   <script src="Doodle.js"></script>
   <script src="Doodles.js"></script>
+  <script>
+    let uid = null
+    let lastDrawingNumber = 0
+    const db = new DB()
+    db.auth(async user => {
+      uid = (user || {}).uid
+      lastDrawingNumber = await db.getLastDrawingNumber()
+      if (uid && dd) dd.init()
+    })
+  </script>
 </body>
 </html>

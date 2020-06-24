@@ -11,10 +11,10 @@ class PxWebPlayer {
     this.continueButton = null
     this.fullcreenButton = null
     this.continueButtonText = 'Click to continue'
-    
+
     this.setupStyles()
-    this.setupFullscreenButton()
-    
+    // this.setupFullscreenButton()
+
     if (stopPlayEl instanceof HTMLElement) {
       stopPlayEl.addEventListener('click', () => {
         this.togglePlay()
@@ -46,13 +46,13 @@ class PxWebPlayer {
       this.draw()
     })
   }
-  
+
   isPlating () { return this._play }
-  
+
   togglePlay () {
     this.play(!this._play)
   }
-  
+
   play (play) {
     if (typeof play === 'undefined') play = true
     this._play = play
