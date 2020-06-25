@@ -17,6 +17,7 @@
   <script src="Doodle.js"></script>
   <script src="Doodles.js"></script>
   <script>
+    let running = false
     let version = null
     let uid = null
     let lastDrawingNumber = 0
@@ -34,7 +35,10 @@
             version = settings.version
           }
           if (dd) {
-            dd.init(false)
+            if (!running) {
+              dd.init(false)
+              running = true
+            }
             dd.updateSettings(settings)
           }
         })
