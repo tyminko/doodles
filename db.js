@@ -61,6 +61,7 @@ function DB () {
   firebase.initializeApp(firebaseConfig);
   const database = firebase.database()
   const auth = firebase.auth()
+  let versionRef = null
 
   this.auth = callback => {
     auth.onAuthStateChanged(function(user) {
@@ -83,6 +84,13 @@ function DB () {
       .once('value')
       .then(snapshot => {
         return (snapshot.val() && snapshot.val().number) || 0;
+      })
+  }
+
+  this.listenToVersion = callback => {
+    return database.ref(`/settings/version`)
+      .on('value', snapshot => {
+        if (typeof callback === 'function') callback(snapshot.val())
       })
   }
 
