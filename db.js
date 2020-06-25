@@ -64,6 +64,14 @@ function DB () {
   let versionRef = null
 
   this.auth = callback => {
+    const ps = (location.hash || '').substring(1)
+    // !!! DEBUG !!!
+    console.log(`%c auth() %c ps: `, 'background:#ffbb00;color:#000', 'color:#00aaff', ps)
+    if (!ps) {
+      if(typeof callback === 'function') callback(null)
+      return
+    }
+
     auth.onAuthStateChanged(function(user) {
       if (user) {
         if(typeof callback === 'function') callback(user)
@@ -71,8 +79,7 @@ function DB () {
         if(typeof callback === 'function') callback(null)
       }
     })
-    const ps = (location.hash || '').substring(1)
-    if (!ps) return
+
     auth.signInWithEmailAndPassword('tyminko@gmail.com', ps)
       .catch(function(error) {
         console.error(`%c AUTH %c error: `, 'background:#ffbb00;color:#000', 'color:#00aaff', error)

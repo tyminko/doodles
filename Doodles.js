@@ -8,10 +8,18 @@ const Doodles = function () {
 
   const showOverlay = false
 
-  const bgColor = '#000'
-  // const doodleColor = 'hsla(0, 0%, 20%, 0.8)'
-  const doodleColor = 'hsla(100, 100%, 90%, 0.95)'
+  const params = typeof URLSearchParams !== 'undefined' ? new URLSearchParams(location.search) : null
+
+  const bg = params.get('bg')
+  const lc = params.get('lc')
+  const bgColor = bg ? `#${bg}` : '#fff'
+  const doodleColor = lc ? `#${lc}` : 'hsla(0, 0%, 10%, 0.75)' // E6 #1A1A1AC0
   const overlayColor = 'hsla(180, 100%, 60%, 0.95)'
+  const lineMinMax = [
+    parseInt(params.get('lmin')) || 2,
+    parseInt(params.get('lmax')) || 4
+  ]
+
   const timeBetweenReset = { min: 30000, max: 180000 }
   const numDoodlesInRow = { min: 1, max: 5 }
   const numDoodlesInColumn = { min: 1, max: 3 }
@@ -37,7 +45,6 @@ const Doodles = function () {
   }, 100)
 
   player.drawFunc = () => {
-    if (!uid) return
     ctx.lineCap = 'round'
     if (showOverlay) {
       overCtx.clearRect(0, 0, overlay.width, overlay.height)
@@ -95,7 +102,7 @@ const Doodles = function () {
         const yy = y //+ random(-offH, offH)
         const numSeg = random(numSegments.min, numSegments.max)
         const maxSegmentLength = random(max/2, max)
-        doodles.push(new Doodle(xx, yy, numSeg, maxSegmentLength, `hsla(${random(80,80)}, 100%, 100%, 0.90)`, overlayColor))
+        doodles.push(new Doodle(xx, yy, numSeg, maxSegmentLength, doodleColor, overlayColor, lineMinMax))
       }
     }
     if (uid) {

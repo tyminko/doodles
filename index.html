@@ -23,17 +23,19 @@
     const db = new DB()
     db.auth(async user => {
       uid = (user || {}).uid
-      lastDrawingNumber = await db.getLastDrawingNumber()
-      db.listenToVersion(v => {
-        // !!! DEBUG !!!
-        console.log(`%c VERSION %c: `, 'background:#ffbb00;color:#000', 'color:#00aaff', v)
-        if (version) {
-          if (version !== v) window.location.reload()
-        } else {
-          version = v
-        }
-      })
-      if (uid && dd) dd.init()
+      // !!! DEBUG !!!
+      console.log(`%c uid %c: `, 'background:#ffbb00;color:#000', 'color:#00aaff', uid)
+      if (uid) lastDrawingNumber = await db.getLastDrawingNumber()
+      if (dd) dd.init()
+    })
+    db.listenToVersion(v => {
+      // !!! DEBUG !!!
+      console.log(`%c VERSION %c: `, 'background:#ffbb00;color:#000', 'color:#00aaff', v)
+      if (version) {
+        if (version !== v) window.location.reload()
+      } else {
+        version = v
+      }
     })
   </script>
 </body>

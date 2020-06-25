@@ -1,6 +1,7 @@
 class Doodle {
-  constructor (x, y, numSegments, maxSegmentLength, color, lineColor) {
-    this.lineWidth = random(3, 8)
+  constructor (x, y, numSegments, maxSegmentLength, color, lineColor, lineMinMax) {
+    const lw = lineMinMax || []
+    this.lineWidth = random(lw[0], lw[1])
     this.toShow = []
     /** @type Segment[] */
     this.segments = []
