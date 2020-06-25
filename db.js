@@ -94,12 +94,13 @@ function DB () {
       })
   }
 
-  this.listenToVersion = callback => {
-    return database.ref(`/settings/version`)
+  this.listenToSettings = callback => {
+    return database.ref(`/settings/doodles`)
       .on('value', snapshot => {
         if (typeof callback === 'function') callback(snapshot.val())
       })
   }
+
 
   /**
    * @param {Doodle[]} doodles

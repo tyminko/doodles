@@ -26,15 +26,20 @@
       // !!! DEBUG !!!
       console.log(`%c uid %c: `, 'background:#ffbb00;color:#000', 'color:#00aaff', uid)
       if (uid) lastDrawingNumber = await db.getLastDrawingNumber()
-      if (dd) dd.init()
-    })
-    db.listenToVersion(v => {
-      // !!! DEBUG !!!
-      console.log(`%c VERSION %c: `, 'background:#ffbb00;color:#000', 'color:#00aaff', v)
-      if (version) {
-        if (version !== v) window.location.reload()
+      if (uid) {
+        db.listenToSettings(settings => {
+          if (version) {
+            if (version !== settings.version) window.location.reload()
+          } else {
+            version = settings.version
+          }
+          if (dd) {
+            dd.init(false)
+            dd.updateSettings(settings)
+          }
+        })
       } else {
-        version = v
+        if (dd) dd.init()
       }
     })
   </script>

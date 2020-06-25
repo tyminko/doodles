@@ -12,8 +12,8 @@ const Doodles = function () {
 
   const bg = params.get('bg')
   const lc = params.get('lc')
-  const bgColor = bg ? `#${bg}` : '#fff'
-  const doodleColor = lc ? `#${lc}` : 'hsla(0, 0%, 10%, 0.75)' // E6 #1A1A1AC0
+  let bgColor = bg ? `#${bg}` : '#fff'
+  let doodleColor = lc ? `#${lc}` : 'hsla(0, 0%, 10%, 0.75)' // E6 #1A1A1AC0
   const overlayColor = 'hsla(180, 100%, 60%, 0.95)'
   const lineMinMax = [
     parseInt(params.get('lmin')) || 2,
@@ -61,10 +61,20 @@ const Doodles = function () {
     if (showOverlay) overCtx.stroke()
   }
 
-  this.init = () => {
+  this.init = (withDoodles = true) => {
     updateResolution()
-    resetDoodles()
+    if (withDoodles) resetDoodles()
     player.play()
+  }
+
+  this.updateSettings = settings => {
+    // !!! DEBUG !!!
+    console.log(`%c updateSettings() %c settings: `, 'background:#ffbb00;color:#000', 'color:#00aaff', settings)
+    if (settings.bgColor) bgColor = settings.bgColor
+    if (settings.lineColor) doodleColor = settings.lineColor
+    if (settings.lineMin) lineMinMax[0] = parseInt(settings.lineMin)
+    if (settings.lineMax) lineMinMax[1] = parseInt(settings.lineMax)
+    resetDoodles()
   }
 
   function resetDoodles () {
