@@ -67,13 +67,15 @@ const Doodles = function () {
     player.play()
   }
 
+  /**
+   * @param {DoodleSettings} settings
+   */
   this.updateSettings = settings => {
-    // !!! DEBUG !!!
-    console.log(`%c updateSettings() %c settings: `, 'background:#ffbb00;color:#000', 'color:#00aaff', settings)
     if (settings.bgColor) bgColor = settings.bgColor
     if (settings.lineColor) doodleColor = settings.lineColor
     if (settings.lineMin) lineMinMax[0] = parseInt(settings.lineMin)
     if (settings.lineMax) lineMinMax[1] = parseInt(settings.lineMax)
+    player.play(settings.pause)
     resetDoodles()
   }
 
@@ -85,6 +87,7 @@ const Doodles = function () {
 
     doodles = generateDoodles()
     justReset = true
+
     if (player.isPlating()) setTimeoutForReset()
   }
 

@@ -34,8 +34,7 @@ class Doodle {
     this.segments.forEach((seg, i) => {
       const toShowIndex = this.toShow.indexOf(i)
       if (i === this.segments.length - 1 || toShowIndex > -1) {
-        const point = seg.show(buffer, w, h, this.lineWidth)
-        this.recordSegmentPointWithIndex(i, point)
+        seg.show(buffer, w, h, this.lineWidth)
       } else {
         seg.calcForward()
       }
@@ -133,7 +132,6 @@ class Segment {
   show (buffer, maxW, maxH, lineWidth) {
     this.calcForward()
     if (!this.parent) return
-
     const exitBounds = shrinkBoundariesByPoint(boundaries(maxW, maxH), this.exitPoint)
     if (typeof this.isOut === 'undefined') this.isOut = pointWithinBoundaries(this.b, exitBounds)
 

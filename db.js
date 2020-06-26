@@ -20,6 +20,14 @@
  */
 /**
  * @typedef {{
+ *  bgColor: string,
+ *  lineColor: string,
+ *  lineMin: number,
+ *  lineMax: number,
+ *  pause: boolean
+ * }[]} DoodleSettings
+ *
+ * @typedef {{
  *  spin: number,
  *  x: number,
  *  y: number
@@ -109,13 +117,13 @@ function DB () {
     const state = doodles.map(doodle => {
       return doodle.segments.map((segment, i) => {
         const segState = {
-          spin: segment.angle,
-          x: segment.a.x,
-          y: segment.a.y
+          spin: segment.angle || 0,
+          x: segment.a.x || 0,
+          y: segment.a.y || 0
         }
         if (i === doodle.segments.length - 1) {
-          segState.xEnd = segment.b.x
-          segState.yEnd = segment.b.y
+          segState.xEnd = segment.b.x || 0
+          segState.yEnd = segment.b.y || 0
         }
         return segState
       })
