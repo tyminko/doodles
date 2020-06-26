@@ -10,7 +10,7 @@ class PxWebPlayer {
     this.playerWrapEl = playerWrapEl || document.body
     this.continueButton = null
     this.fullcreenButton = null
-    this.continueButtonText = 'Click to continue'
+    this.continueButtonText = 'Paused'
 
     this.setupStyles()
     // this.setupFullscreenButton()

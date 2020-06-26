@@ -72,24 +72,24 @@ const Doodles = function () {
    */
   this.updateSettings = settings => {
     let updated = false
-    if (settings.bgColor) {
+    if (settings.bgColor !== bgColor) {
       bgColor = settings.bgColor
       updated = true
     }
-    if (settings.lineColor) {
+    if (settings.lineColor !== doodleColor) {
       doodleColor = settings.lineColor
       updated = true
     }
-    if (settings.lineMin) {
+    if (settings.lineMin !== lineMinMax[0]) {
       lineMinMax[0] = parseInt(settings.lineMin)
       updated = true
     }
-    if (settings.lineMax) {
+    if (settings.lineMax !== lineMinMax[1]) {
       lineMinMax[1] = parseInt(settings.lineMax)
       updated = true
     }
     if (updated) resetDoodles()
-    player.play(settings.pause)
+    player.play(!settings.pause)
   }
 
   function resetDoodles () {
