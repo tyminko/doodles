@@ -3,6 +3,7 @@
 const Doodles = function () {
   const pxDens = window.devicePixelRatio
 
+  let saveStateInterval = null
   let resetTimeout = null
   let justReset = false
 
@@ -36,13 +37,17 @@ const Doodles = function () {
   let doodles = []
 
   const player = new PxWebPlayer(null, overlay)
-  player.onResize = () => { updateResolution(); resetDoodles() }
-  player.onPause = () => { clearTimeout(resetTimeout) }
-  player.onResume = () => { setTimeoutForReset() }
-
-  setInterval(() => {
-    if (uid && db) db.saveCurrentState(doodles)
-  }, 100)
+  player.onResize = () => {
+    updateResolution()
+    resetDoodles()
+  }
+  player.onPause = () => {
+    clearTimeout(resetTimeout)
+    clearInterval(saveStateInterval)
+  }
+  player.onResume = () => {
+    setTimeoutForReset()
+  }
 
   player.drawFunc = () => {
     ctx.lineCap = 'round'
@@ -70,7 +75,7 @@ const Doodles = function () {
   /**
    * @param {DoodleSettings} settings
    */
-  this.updateSettings = settings => {
+  this.onUpdateSettings = settings => {
     let updated = false
     if (settings.bgColor !== bgColor) {
       bgColor = settings.bgColor
@@ -109,6 +114,15 @@ const Doodles = function () {
       resetTimeout = setTimeout(() => {
         requestAnimationFrame(resetDoodles)
       }, nextResetInSeconds)
+  }
+
+  function setSaveStateInterval () {
+    saveStateInterval = setInterval(() => {
+      if (player.isPlating()) {
+        if (uid && db) db.saveCurrentState(doodles)
+      }
+    }, 150)
+
   }
 
   function generateDoodles () {

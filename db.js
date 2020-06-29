@@ -159,6 +159,7 @@ function DB () {
   function doodleToDoodleData (doodle, index) {
     return {
       order: index,
+      origin: doodle.segments[0].a,
       probabilitySpinFlip: doodle.angleDirChangeChance,
       drawingPoints: doodle.toShow,
       segments: doodle.segments.map((segment, i) => segmentToSegmentData(segment, i))
@@ -171,6 +172,10 @@ function DB () {
    * @return {SegmentData}
    */
   function segmentToSegmentData (segment, index) {
-    return { length: segment.length }
+    return {
+      length: segment.length,
+      angleDir: segment.angleDir,
+      angleChange: segment.angleChange
+    }
   }
 }

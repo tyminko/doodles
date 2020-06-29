@@ -14,6 +14,7 @@
 <body>
   <script src="PxWebPlayer.js"></script>
   <script src="lib.js"></script>
+  <script src="Segment.js"></script>
   <script src="Doodle.js"></script>
   <script src="Doodles.js"></script>
   <script>
@@ -39,7 +40,7 @@
               dd.init(false)
               running = true
             }
-            dd.updateSettings(settings)
+            dd.onUpdateSettings(settings)
           }
         })
       } else {
