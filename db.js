@@ -173,6 +173,7 @@ function DB () {
    */
   function segmentToSegmentData (segment, index) {
     return {
+      origAngle: segment.angle,
       length: segment.length,
       angleDir: segment.angleDir,
       angleChange: segment.angleChange

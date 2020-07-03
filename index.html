@@ -22,11 +22,11 @@
     let version = null
     let uid = null
     let lastDrawingNumber = 0
+    const ps = (location.hash || '').substring(1)
+    if (ps) document.body.style.background = '#000'
     const db = new DB()
     db.auth(async user => {
       uid = (user || {}).uid
-      // !!! DEBUG !!!
-      console.log(`%c uid %c: `, 'background:#ffbb00;color:#000', 'color:#00aaff', uid)
       if (uid) lastDrawingNumber = await db.getLastDrawingNumber()
       if (uid) {
         db.listenToSettings(settings => {

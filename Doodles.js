@@ -100,7 +100,7 @@ const Doodles = function () {
   function resetDoodles () {
     clearTimeout(resetTimeout)
     ctx.fillStyle = bgColor
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
     overCtx.clearRect(0, 0, overlay.width, overlay.height)
 
     doodles = generateDoodles()

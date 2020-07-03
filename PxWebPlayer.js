@@ -126,7 +126,8 @@ class PxWebPlayer {
         bottom: 0;
         z-index: 10000;
         padding: 20px 40px;
-        background: rgba(255,255,255,0.95);
+        background: rgba(0,0,0,0.6);
+        color: #fff;
         user-select: none;
         cursor: pointer;
       }
